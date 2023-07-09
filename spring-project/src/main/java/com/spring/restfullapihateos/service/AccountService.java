@@ -3,6 +3,7 @@ package com.spring.restfullapihateos.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.spring.restfullapihateos.entity.Account;
@@ -23,6 +24,10 @@ public class AccountService {
 
 	public Account getOne(Long id) {
 		return this.accountRepository.findById(id).get();
+	}
+	
+	public boolean accountExists (Account accountExists) {
+		return this.accountRepository.exists(Example.of(accountExists));
 	}
 	
 	public Account save(Account account) {
