@@ -22,7 +22,7 @@ public class DatabaseLoader {
 			Account account2 = new Account("234567890", 1500);
 			Account account3 = new Account("345678901", 123);
 			this.accountRepository.saveAll(List.of(account1, account2, account3));
-			System.out.println("Sample database initialized !!!");
+			System.out.println("H2 database initialized !!!");
 		};
 	}
 
