@@ -5,26 +5,23 @@
 GET http://localhost:8080/api/accounts HTTP/1.1
 
 ###
-GET http://localhost:8080/api/accounts/11 HTTP/1.1
+GET http://localhost:8080/api/accounts/1 HTTP/1.1
 
 ###
-POST http://localhost:8080/api/user HTTP/1.1
+POST http://localhost:8080/api/accounts HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "Sultan",
-    "lastName": "Moumeneen"
+    "accountNumber": "4152637890",
+    "balance": 1400
 }
 
 ###
-PUT  http://localhost:8080/api/user/4 HTTP/1.1
+PUT  http://localhost:8080/api/accounts HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "tiok",
-    "lastName": "tuk"
+    "id" : 1,
+    "accountNumber" : "1234567893535",
+    "balance" : "12"
 }
-
-###
-DELETE   http://localhost:8080/api/user/8 HTTP/1.1
-content-type: application/json
