@@ -1,6 +1,7 @@
 package com.spring.restfullapihateos.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -25,26 +26,30 @@ public class AccountService {
 	public Account getOne(Long id) {
 		return this.accountRepository.findById(id).get();
 	}
-	
-	public boolean accountExists (Account accountExists) {
+
+	public boolean accountExists(Account accountExists) {
 		return this.accountRepository.exists(Example.of(accountExists));
 	}
 	
+	public boolean accountExistsId(Long id) {
+		return this.accountRepository.existsById(id);
+	}
+
 	public Account save(Account account) {
 		return this.accountRepository.save(account);
 	}
-	
+
 	public void delete(Long id) {
 		this.accountRepository.deleteById(id);
 	}
-	
+
 	public Account deposit(float amount, Long id) {
-		this.accountRepository.updateBalance(amount, id);
+		this.accountRepository.deposit(amount, id);
 		return this.accountRepository.findById(id).get();
 	}
 	
 	public Account withdraw(float amount, Long id) {
-		this.accountRepository.updateBalance(-amount, id);
-		return this.accountRepository.findById(id).get();
-	}
+		this.accountRepository.withdraw(amount, id);
+        return this.accountRepository.findById(id).get();
+    } 
 }

@@ -17,4 +17,5 @@ or
 ## dockerise
 
 * docker build -t img/java17 .
-* docker run -it -p 8080:8080 -v ./app:/app -v /app/target --name container_java17 img/java17
+* docker run -it -p 80:8080 -v ./app:/app -v /app/target --name cont_jdk17_rest_full_api img/java17
+* on browser http://localhost/api/accounts

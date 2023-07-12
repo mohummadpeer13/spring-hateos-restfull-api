@@ -12,6 +12,7 @@ import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.restfullapihateos.entity.Account;
+import com.spring.restfullapihateos.entity.Amount;
 import com.spring.restfullapihateos.service.AccountService;
 
 @RestController
@@ -38,6 +40,7 @@ public class AccountController {
 
 		for (Account account : listAccounts) {
 			account.add(linkTo(methodOn(AccountController.class).getOne(account.getId())).withSelfRel());
+			account.add(linkTo(methodOn(AccountController.class).deposit(account.getId(), null)).withRel("deposits"));
 			account.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
 
 		}
@@ -52,6 +55,7 @@ public class AccountController {
 		try {
 			Account account = this.accountService.getOne(id);
 			account.add(linkTo(methodOn(AccountController.class).getOne(account.getId())).withSelfRel());
+			account.add(linkTo(methodOn(AccountController.class).deposit(account.getId(), null)).withRel("deposits"));
 			account.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
 			return new ResponseEntity<>(account, HttpStatus.OK);
 		} catch (NoSuchElementException ex) {
@@ -66,10 +70,12 @@ public class AccountController {
 		} else {
 			Account savedAccount = this.accountService.save(account);
 			savedAccount.add(linkTo(methodOn(AccountController.class).getOne(savedAccount.getId())).withSelfRel());
+			savedAccount.add(
+					linkTo(methodOn(AccountController.class).deposit(savedAccount.getId(), null)).withRel("deposits"));
 			savedAccount.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
 			return ResponseEntity
 					.created(linkTo(methodOn(AccountController.class).getOne(savedAccount.getId())).toUri())
-					.body(savedAccount); //response 201 -> created
+					.body(savedAccount); // response 201 -> created
 		}
 	}
 
@@ -80,6 +86,8 @@ public class AccountController {
 			if (accountWithId != null) {
 				Account updateAccount = this.accountService.save(account);
 				updateAccount.add(linkTo(methodOn(AccountController.class).getOne(account.getId())).withSelfRel());
+				updateAccount.add(linkTo(methodOn(AccountController.class).deposit(updateAccount.getId(), null))
+						.withRel("deposits"));
 				updateAccount
 						.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
 				return new ResponseEntity<>(updateAccount, HttpStatus.OK);
@@ -88,8 +96,39 @@ public class AccountController {
 			}
 
 		} catch (NoSuchElementException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			// response 404 -> not found
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // response 404
 		}
+	}
+
+	@PatchMapping("/{id}/deposit")
+	public ResponseEntity<Account> deposit(@PathVariable("id") Long id, @RequestBody Amount amount) {
+		if (this.accountService.accountExistsId(id)) {
+			Account updateAccount = this.accountService.deposit(amount.getAmount(), id);
+			updateAccount.add(linkTo(methodOn(AccountController.class).getOne(updateAccount.getId())).withSelfRel());
+			updateAccount.add(
+					linkTo(methodOn(AccountController.class).deposit(updateAccount.getId(), null)).withRel("deposits"));
+			updateAccount
+					.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
+			return new ResponseEntity<>(updateAccount, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // response 404
+		}
+
+	}
+
+	@PatchMapping("/{id}/withdraw")
+	public ResponseEntity<Account> withdraw(@PathVariable("id") Long id, @RequestBody Amount amount) {
+		if (this.accountService.accountExistsId(id)) {
+			Account updateAccount = this.accountService.withdraw(amount.getAmount(), id);
+			updateAccount.add(linkTo(methodOn(AccountController.class).getOne(updateAccount.getId())).withSelfRel());
+			updateAccount.add(linkTo(methodOn(AccountController.class).withdraw(updateAccount.getId(), null))
+					.withRel("withdraws"));
+			updateAccount
+					.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
+			return new ResponseEntity<>(updateAccount, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // response 404
+		}
+
 	}
 }

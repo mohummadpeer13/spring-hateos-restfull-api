@@ -21,6 +21,7 @@ public class DatabaseLoader {
 			Account account1 = new Account("123456789", 100);
 			Account account2 = new Account("234567890", 1500);
 			Account account3 = new Account("345678901", 123);
+			Account account4 = new Account("0000000023", 4500);
 			this.accountRepository.saveAll(List.of(account1, account2, account3));
 			System.out.println("H2 database initialized !!!");
 		};
