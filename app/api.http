@@ -21,9 +21,8 @@ PUT  http://localhost:8080/api/accounts HTTP/1.1
 content-type: application/json
 
 {
-    "id" : 1,
-    "accountNumber" : "1234567893535",
-    "balance" : "12"
+    "id" : 2,
+    "balance" : "45"
 }
 
 ###

@@ -1,4 +1,4 @@
-package com.spring.restfullapihateos.service;
+package com.spring.restfullapihateos.entity;
 
 public class SuccessResponse {
 	private String message;
