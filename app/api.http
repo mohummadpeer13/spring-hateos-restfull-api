@@ -5,7 +5,7 @@
 GET http://localhost:8080/api/accounts HTTP/1.1
 
 ###
-GET http://localhost:8080/api/accounts/1 HTTP/1.1
+GET http://localhost:8080/api/accounts/5 HTTP/1.1
 
 ###
 POST http://localhost:8080/api/accounts HTTP/1.1
@@ -27,12 +27,10 @@ content-type: application/json
 }
 
 ###
-DELETE   http://localhost:8080/api/accounts/4 HTTP/1.1
-
-
+DELETE   http://localhost:8080/api/accounts/5 HTTP/1.1
 
 ###
-PATCH   http://localhost:8080/api/accounts/2/deposit HTTP/1.1
+PATCH   http://localhost:8080/api/accounts/5/deposit HTTP/1.1
 content-type: application/json
 
 {

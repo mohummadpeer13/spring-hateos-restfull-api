@@ -1,7 +1,5 @@
 package com.spring.restfullapihateos.entity;
 
-import org.springframework.hateoas.RepresentationModel;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

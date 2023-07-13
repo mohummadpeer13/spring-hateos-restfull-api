@@ -18,11 +18,11 @@ public class AccountModelAssembler implements RepresentationModelAssembler<Accou
 	public EntityModel<Account> toModel(Account account) {
 		EntityModel<Account> accountModel = EntityModel.of(account);
 
-		accountModel.add(linkTo(methodOn(AccountController.class).getOne(account.getId())).withSelfRel());
+		accountModel.add(linkTo(methodOn(AccountController.class).getOneAccount(account.getId())).withSelfRel());
 		accountModel.add(linkTo(methodOn(AccountController.class).deposit(account.getId(), null)).withRel("deposits"));
 		accountModel
 				.add(linkTo(methodOn(AccountController.class).withdraw(account.getId(), null)).withRel("withdrawals"));
-	    accountModel.add(linkTo(methodOn(AccountController.class).listAll()).withRel(IanaLinkRelations.COLLECTION));
+	    accountModel.add(linkTo(methodOn(AccountController.class).listAllAccount()).withRel(IanaLinkRelations.COLLECTION));
 
 		return accountModel;
 	}
