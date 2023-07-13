@@ -1,7 +1,6 @@
 package com.spring.restfullapihateos.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -39,7 +38,10 @@ public class AccountService {
 		return this.accountRepository.save(account);
 	}
 
-	public void delete(Long id) {
+	public void delete(Long id) throws AccountNotFoundException {
+		if (!this.accountRepository.existsById(id)) {
+			throw new AccountNotFoundException();
+		}
 		this.accountRepository.deleteById(id);
 	}
 

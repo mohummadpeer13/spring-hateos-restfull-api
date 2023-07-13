@@ -27,14 +27,20 @@ content-type: application/json
 }
 
 ###
-PATCH   http://localhost:8080/api/accounts/1/deposit HTTP/1.1
+DELETE   http://localhost:8080/api/accounts/4 HTTP/1.1
+
+
+
+###
+PATCH   http://localhost:8080/api/accounts/2/deposit HTTP/1.1
 content-type: application/json
 
 {
-    "amount" : "100"
+    "amount" : "500"
 }
+
 ###
-PATCH   http://localhost:8080/api/accounts/11/withdraw HTTP/1.1
+PATCH   http://localhost:8080/api/accounts/2/withdraw HTTP/1.1
 content-type: application/json
 
 {
