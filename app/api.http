@@ -5,7 +5,7 @@
 GET http://localhost:8080/api/accounts HTTP/1.1
 
 ###
-GET http://localhost:8080/api/accounts/5 HTTP/1.1
+GET http://localhost:8080/api/accounts/2 HTTP/1.1
 
 ###
 POST http://localhost:8080/api/accounts HTTP/1.1
@@ -21,15 +21,15 @@ PUT  http://localhost:8080/api/accounts HTTP/1.1
 content-type: application/json
 
 {
-    "id" : 2,
-    "balance" : "45"
+    "id" : 20,
+    "balance" : "1500000"
 }
 
 ###
-DELETE   http://localhost:8080/api/accounts/5 HTTP/1.1
+DELETE   http://localhost:8080/api/accounts/1 HTTP/1.1
 
 ###
-PATCH   http://localhost:8080/api/accounts/5/deposit HTTP/1.1
+PATCH   http://localhost:8080/api/accounts/1/deposit HTTP/1.1
 content-type: application/json
 
 {
@@ -37,7 +37,7 @@ content-type: application/json
 }
 
 ###
-PATCH   http://localhost:8080/api/accounts/2/withdraw HTTP/1.1
+PATCH   http://localhost:8080/api/accounts/1/withdraw HTTP/1.1
 content-type: application/json
 
 {
